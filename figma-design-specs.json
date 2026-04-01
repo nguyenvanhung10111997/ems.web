@@ -1,0 +1,132 @@
+{
+  "designStructure": {
+    "pages": [
+      {
+        "name": "Design System",
+        "frames": [
+          {
+            "name": "Colors",
+            "width": 1200,
+            "height": 800,
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Primary Colors",
+                "layout": "HORIZONTAL",
+                "children": [
+                  {
+                    "name": "Sky Blue",
+                    "color": "#87CEEB",
+                    "width": 200,
+                    "height": 200
+                  },
+                  {
+                    "name": "Sky Blue Light",
+                    "color": "#B3E5FC",
+                    "width": 200,
+                    "height": 200
+                  },
+                  {
+                    "name": "Sky Blue Dark",
+                    "color": "#0288D1",
+                    "width": 200,
+                    "height": 200
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Dashboard",
+        "frames": [
+          {
+            "name": "Student Dashboard",
+            "width": 1440,
+            "height": 1024,
+            "backgroundColor": "#FAFAFA"
+          },
+          {
+            "name": "Teacher Dashboard",
+            "width": 1440,
+            "height": 1024,
+            "backgroundColor": "#FAFAFA"
+          },
+          {
+            "name": "Admin Dashboard",
+            "width": 1440,
+            "height": 1024,
+            "backgroundColor": "#FAFAFA"
+          }
+        ]
+      }
+    ]
+  },
+  "componentSpecs": {
+    "header": {
+      "width": 1440,
+      "height": 80,
+      "backgroundColor": "#FFFFFF",
+      "shadow": "0px 1px 3px rgba(0,0,0,0.1)",
+      "children": [
+        {
+          "type": "logo",
+          "position": {
+            "x": 24,
+            "y": 20
+          },
+          "size": {
+            "width": 40,
+            "height": 40
+          },
+          "backgroundColor": "#87CEEB",
+          "borderRadius": 8,
+          "text": "EMS",
+          "textColor": "#FFFFFF"
+        },
+        {
+          "type": "title",
+          "position": {
+            "x": 80,
+            "y": 20
+          },
+          "text": "Education Management System",
+          "fontSize": 20,
+          "fontWeight": "Bold",
+          "color": "#212121"
+        }
+      ]
+    },
+    "sidebar": {
+      "width": 256,
+      "height": 944,
+      "backgroundColor": "#FFFFFF",
+      "borderRight": "1px solid #E0E0E0",
+      "children": [
+        {
+          "type": "nav-item",
+          "name": "Dashboard",
+          "position": {
+            "x": 16,
+            "y": 16
+          },
+          "width": 224,
+          "height": 48,
+          "active": true,
+          "backgroundColor": "#87CEEB",
+          "textColor": "#FFFFFF"
+        }
+      ]
+    },
+    "statCard": {
+      "width": 280,
+      "height": 160,
+      "backgroundColor": "#FFFFFF",
+      "borderRadius": 8,
+      "border": "1px solid #E0E0E0",
+      "shadow": "0px 2px 4px rgba(0,0,0,0.05)",
+      "padding": 24
+    }
+  }
+}

@@ -1,0 +1,114 @@
+---
+alwaysApply: true
+description: Tips and tricks for efficient coding workflow
+---
+
+# Efficiency Tips & Workflow
+
+## Code Generation Workflow
+
+### When Creating New Components
+1. **Analyze requirements first** - Understand what the component needs to do
+2. **Check for existing patterns** - Look at similar components in the codebase
+3. **Create component structure** - File, props interface, basic structure
+4. **Implement styling** - Use Tailwind classes, reference [code-conventions.mdc](mdc:.cursor/rules/code-conventions.mdc)
+5. **Add interactivity** - State, handlers, Zustand if needed
+6. **Write tests** - Create test file alongside component
+7. **Format code** - Run `npm run format` before committing
+
+### When Converting Figma Designs
+1. **Use Figma analysis rule** - Reference [figma-analysis.mdc](mdc:.cursor/rules/figma-analysis.mdc)
+2. **Break down into components** - Identify reusable pieces
+3. **Start with layout** - Structure first, then styling
+4. **Use Tailwind utilities** - Don't create custom CSS unless necessary
+5. **Test responsive** - Check mobile, tablet, desktop
+6. **Verify accessibility** - Keyboard navigation, screen readers
+
+## Keyboard Shortcuts & Tools
+
+### VS Code / Cursor Shortcuts
+- `Ctrl/Cmd + .` - Quick fix / suggestions
+- `Ctrl/Cmd + Shift + P` - Command palette
+- `F2` - Rename symbol (refactor)
+- `Ctrl/Cmd + Click` - Go to definition
+- `Alt + Click` - Multi-cursor
+- `Ctrl/Cmd + D` - Select next occurrence
+
+### Useful Extensions
+- ESLint - Code linting
+- Prettier - Code formatting (already configured)
+- Tailwind CSS IntelliSense - Autocomplete for Tailwind
+- TypeScript Importer - Auto-import types
+- Error Lens - Inline error display
+
+## Code Review Checklist
+
+Before submitting code:
+- [ ] TypeScript types are correct (no `any` types)
+- [ ] Code formatted with Prettier
+- [ ] No console.logs or debug code
+- [ ] Tests written and passing
+- [ ] Component is accessible
+- [ ] Responsive design implemented
+- [ ] No unused imports or variables
+- [ ] Follows project file structure
+
+## Common Patterns to Reuse
+
+### Button Component
+```tsx
+<button
+  onClick={handleClick}
+  className="px-4 py-2 rounded-lg font-semibold transition-colors bg-blue-600 hover:bg-blue-700 text-white"
+>
+  {label}
+</button>
+```
+
+### Input Component
+```tsx
+<input
+  type="text"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+/>
+```
+
+### Loading Spinner
+```tsx
+<div className="flex items-center justify-center p-8">
+  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+</div>
+```
+
+## Debugging Tips
+
+1. **Use React DevTools** - Inspect component state and props
+2. **Use TypeScript** - Catch errors at compile time
+3. **Console debugging** - Use `console.log` strategically (remove before commit)
+4. **Breakpoints** - Use browser DevTools for runtime debugging
+5. **Test in isolation** - Test components separately before integration
+
+## Performance Optimization
+
+1. **Memoization** - Use `React.memo`, `useMemo`, `useCallback` when needed
+2. **Code splitting** - Lazy load routes and heavy components
+3. **Image optimization** - Use appropriate image formats and sizes
+4. **Bundle analysis** - Check bundle size with `npm run build` and analyze
+
+## Git Workflow
+
+1. **Small commits** - One feature/fix per commit
+2. **Descriptive messages** - "Add user profile component" not "Update code"
+3. **Branch naming** - `feature/component-name`, `fix/bug-description`
+4. **Format before commit** - Run `npm run format` or use pre-commit hook
+
+## Asking for Help
+
+When stuck, provide:
+1. What you're trying to achieve
+2. What you've tried
+3. Error messages (if any)
+4. Relevant code snippets
+5. Expected vs actual behavior

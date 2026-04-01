@@ -1,0 +1,181 @@
+---
+globs: *.tsx,*.jsx
+description: Common TailwindCSS patterns and utility combinations
+---
+
+# TailwindCSS Patterns
+
+## Common Utility Combinations
+
+### Card Container
+```tsx
+className="bg-white rounded-lg shadow-md p-6"
+```
+
+### Button Base
+```tsx
+className="px-4 py-2 rounded-lg font-semibold transition-colors"
+```
+
+### Input Base
+```tsx
+className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+```
+
+### Flex Center
+```tsx
+className="flex items-center justify-center"
+```
+
+### Flex Between
+```tsx
+className="flex items-center justify-between"
+```
+
+### Grid Layout
+```tsx
+className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+```
+
+### Container with Max Width
+```tsx
+className="container mx-auto px-4 max-w-7xl"
+```
+
+## Spacing Patterns
+
+### Section Padding
+- Small: `py-4` or `py-6`
+- Medium: `py-8` or `py-12`
+- Large: `py-16` or `py-24`
+
+### Component Spacing
+- Tight: `space-y-2` or `gap-2`
+- Normal: `space-y-4` or `gap-4`
+- Loose: `space-y-6` or `gap-6`
+
+## Color Patterns
+
+### Text Colors
+- Primary: `text-gray-900`
+- Secondary: `text-gray-600`
+- Muted: `text-gray-500`
+- Accent: `text-blue-600`
+- Error: `text-red-600`
+- Success: `text-green-600`
+
+### Background Colors
+- White: `bg-white`
+- Light: `bg-gray-50` or `bg-gray-100`
+- Primary: `bg-blue-600`
+- Hover: `hover:bg-blue-700`
+
+## Responsive Patterns
+
+### Mobile-First Approach
+```tsx
+// Mobile: single column, Desktop: 3 columns
+className="grid grid-cols-1 lg:grid-cols-3"
+```
+
+### Hide/Show by Breakpoint
+```tsx
+// Hidden on mobile, visible on desktop
+className="hidden md:block"
+```
+
+### Text Size Responsive
+```tsx
+className="text-lg md:text-xl lg:text-2xl"
+```
+
+## State Patterns
+
+### Hover States
+```tsx
+className="bg-blue-600 hover:bg-blue-700 transition-colors"
+```
+
+### Focus States
+```tsx
+className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+```
+
+### Active States
+```tsx
+className="active:bg-blue-800"
+```
+
+### Disabled States
+```tsx
+className="disabled:opacity-50 disabled:cursor-not-allowed"
+```
+
+## Animation Patterns
+
+### Transition
+```tsx
+className="transition-all duration-200"
+```
+
+### Hover Scale
+```tsx
+className="hover:scale-105 transition-transform"
+```
+
+### Spin Animation
+```tsx
+className="animate-spin"
+```
+
+## Shadow Patterns
+
+- Small: `shadow-sm`
+- Medium: `shadow-md` (most common)
+- Large: `shadow-lg`
+- Extra Large: `shadow-xl`
+
+## Border Radius Patterns
+
+- Small: `rounded` or `rounded-sm`
+- Medium: `rounded-lg` (most common)
+- Large: `rounded-xl`
+- Full: `rounded-full` (for circles/pills)
+
+## Typography Patterns
+
+### Headings
+- H1: `text-3xl md:text-4xl font-bold`
+- H2: `text-2xl md:text-3xl font-semibold`
+- H3: `text-xl md:text-2xl font-semibold`
+- H4: `text-lg font-semibold`
+
+### Body Text
+- Default: `text-base text-gray-700`
+- Small: `text-sm text-gray-600`
+- Large: `text-lg text-gray-800`
+
+## Layout Patterns
+
+### Full Height Container
+```tsx
+className="min-h-screen"
+```
+
+### Centered Content
+```tsx
+className="flex items-center justify-center min-h-screen"
+```
+
+### Sticky Header
+```tsx
+className="sticky top-0 z-50 bg-white shadow-md"
+```
+
+### Sidebar Layout
+```tsx
+// Sidebar
+className="w-64 fixed left-0 top-0 h-full"
+// Main content
+className="ml-64"
+```

@@ -1,0 +1,113 @@
+---
+alwaysApply: true
+description: Project file structure and organization guidelines
+---
+
+# File Structure Guidelines
+
+## Directory Organization
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ComponentName.tsx
+│   └── ComponentName.test.tsx
+├── store/              # Zustand stores
+│   └── useStoreName.ts
+├── hooks/              # Custom React hooks
+│   └── useHookName.ts
+├── utils/              # Utility functions
+│   └── utilityName.ts
+├── types/              # TypeScript type definitions
+│   └── types.ts
+├── constants/          # Constants and configuration
+│   └── constants.ts
+├── test/               # Test setup and utilities
+│   └── setup.ts
+├── App.tsx             # Main app component
+├── main.tsx            # Application entry point
+└── index.css           # Global styles
+```
+
+## Component Organization
+
+### Single Component File
+- One component per file
+- Component name matches file name
+- Export as default
+
+### Component with Tests
+- Component: `ComponentName.tsx`
+- Test: `ComponentName.test.tsx` (same directory)
+- Types: Can be inline or in separate `types.ts` if shared
+
+### Component with Sub-components
+```
+components/
+├── Card/
+│   ├── Card.tsx
+│   ├── CardHeader.tsx
+│   ├── CardBody.tsx
+│   ├── CardFooter.tsx
+│   └── Card.test.tsx
+```
+
+## Import Path Conventions
+
+### Absolute Imports (Preferred)
+Use path aliases if configured in `tsconfig.json`:
+```typescript
+import Button from '@/components/Button'
+import { useAuth } from '@/hooks/useAuth'
+```
+
+### Relative Imports
+For same-level or nearby files:
+```typescript
+import Header from './Header'
+import Counter from '../components/Counter'
+```
+
+## File Naming Rules
+
+- **Components**: PascalCase - `UserProfile.tsx`
+- **Hooks**: camelCase with `use` prefix - `useAuth.ts`
+- **Utilities**: camelCase - `formatDate.ts`
+- **Types**: camelCase - `userTypes.ts` or `types.ts`
+- **Constants**: UPPER_SNAKE_CASE or camelCase - `API_CONSTANTS.ts` or `constants.ts`
+- **Tests**: Same as source + `.test` - `UserProfile.test.tsx`
+
+## Barrel Exports (index.ts)
+
+For directories with multiple exports:
+```typescript
+// components/index.ts
+export { default as Button } from './Button'
+export { default as Input } from './Input'
+export { default as Card } from './Card'
+```
+
+Then import:
+```typescript
+import { Button, Input, Card } from '@/components'
+```
+
+## Store Organization
+
+Stores in `src/store/`:
+- One store per domain/feature
+- Named with `use` prefix: `useAuthStore.ts`, `useUserStore.ts`
+- Export default the hook
+
+## Types Organization
+
+- **Component-specific types**: Inline with component or in same file
+- **Shared types**: `src/types/` directory
+- **API types**: `src/types/api.ts`
+- **Store types**: In store file or `src/types/store.ts`
+
+## Constants Organization
+
+- **API endpoints**: `src/constants/api.ts`
+- **App constants**: `src/constants/app.ts`
+- **Theme constants**: `src/constants/theme.ts`

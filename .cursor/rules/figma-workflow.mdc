@@ -1,0 +1,205 @@
+---
+alwaysApply: true
+description: Complete workflow for working with Figma designs in the development process
+---
+
+# Figma Design Workflow
+
+## Getting Started with Figma
+
+### 1. Accessing Your Figma Design
+- Open Figma Desktop app or use Figma web
+- Share your Figma file link or design with the development team
+- Ensure you have access to the design file
+
+### 2. Design Inspection Tools in Figma
+- **Inspect Panel**: Right-click any element → "Inspect" to see CSS properties
+- **Design Tokens**: Check if design uses variables/tokens (Figma Variables)
+- **Component Library**: Look for reusable components in the design
+- **Frames**: Identify responsive breakpoints (Mobile, Tablet, Desktop frames)
+
+### 3. Extracting Design Information
+
+#### Using Figma's Inspect Panel
+1. Select an element in Figma
+2. Open the Inspect panel (right sidebar)
+3. Extract:
+   - **Dimensions**: Width, height
+   - **Spacing**: Padding, margin values
+   - **Typography**: Font family, size, weight, line height
+   - **Colors**: Hex codes
+   - **Effects**: Shadows, blur, opacity
+   - **Layout**: Flexbox or Grid properties
+
+#### Design Specs Checklist
+When working with a Figma design, extract:
+- [ ] Frame dimensions and constraints
+- [ ] Color palette (primary, secondary, neutrals)
+- [ ] Typography scale (heading sizes, body text)
+- [ ] Spacing system (padding, margins, gaps)
+- [ ] Component variants (button states, input states)
+- [ ] Responsive breakpoints
+- [ ] Interactive states (hover, active, focus, disabled)
+
+## Working with Figma Designs
+
+### Method 1: Manual Design Analysis
+1. Open Figma design
+2. Use the analysis checklist from [figma-analysis.mdc](mdc:.cursor/rules/figma-analysis.mdc)
+3. Document design tokens manually
+4. Share design specs or screenshots
+5. Use AI to convert based on specs
+
+### Method 2: Figma Plugin Integration
+Consider using Figma plugins for design token extraction:
+- **Figma Tokens**: Export design tokens as JSON
+- **Design Tokens**: Sync tokens between Figma and code
+- **Figma to Code**: Generate code directly from Figma
+
+### Method 3: Screenshot/Image Analysis
+1. Take screenshots of Figma designs
+2. Share images with design specs
+3. Use AI to analyze and convert to code
+4. Reference the conversion workflow in [figma-to-code.mdc](mdc:.cursor/rules/figma-to-code.mdc)
+
+## Design Token Management
+
+### Extracting Colors
+When you find colors in Figma:
+1. Copy hex code
+2. Check if it matches Tailwind palette
+3. If not, add to `tailwind.config.js`:
+
+```javascript
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        'brand-primary': '#0066FF',
+        'brand-secondary': '#00CC99',
+      }
+    }
+  }
+}
+```
+
+### Extracting Typography
+Map Figma text styles to Tailwind:
+- 12px → `text-xs`
+- 14px → `text-sm`
+- 16px → `text-base`
+- 18px → `text-lg`
+- 20px → `text-xl`
+- 24px → `text-2xl`
+- 30px → `text-3xl`
+- 36px → `text-4xl`
+
+### Extracting Spacing
+Map Figma spacing to Tailwind scale:
+- 4px → `1` (p-1, m-1, gap-1)
+- 8px → `2` (p-2, m-2, gap-2)
+- 12px → `3` (p-3, m-3, gap-3)
+- 16px → `4` (p-4, m-4, gap-4)
+- 24px → `6` (p-6, m-6, gap-6)
+- 32px → `8` (p-8, m-8, gap-8)
+
+## Requesting Code from Figma Designs
+
+### How to Ask for Component Conversion
+
+**Good Request:**
+```
+I have a Figma design for a user profile card. Here are the specs:
+- Card: 400px wide, white background, 16px padding, 8px border radius, shadow-md
+- Avatar: 64px circle, top of card
+- Name: 24px, bold, gray-900
+- Email: 16px, gray-600
+- Button: Primary blue, 12px padding, rounded
+
+Please create a React component following our code conventions.
+```
+
+**Better Request (with Figma link or screenshot):**
+```
+Convert this Figma design to a React component:
+[Share Figma link or attach screenshot]
+
+The component should:
+- Be reusable with props for name, email, avatar
+- Use TailwindCSS for styling
+- Include TypeScript types
+- Have hover states on the button
+- Be responsive (mobile-first)
+```
+
+### What to Provide
+1. **Design Link**: Figma file URL (if shareable)
+2. **Screenshots**: High-quality images of the design
+3. **Design Specs**: Dimensions, colors, spacing, typography
+4. **Component Requirements**: Props needed, interactivity, states
+5. **Responsive Requirements**: Breakpoints, mobile/tablet/desktop variations
+
+## Design-to-Code Process
+
+### Step-by-Step Workflow
+
+1. **Analyze Design** (Use [figma-analysis.mdc](mdc:.cursor/rules/figma-analysis.mdc))
+   - Extract all design tokens
+   - Identify components and sub-components
+   - Note interactive states
+
+2. **Plan Structure** (Use [file-structure.mdc](mdc:.cursor/rules/file-structure.mdc))
+   - Determine component hierarchy
+   - Plan file organization
+   - Identify reusable parts
+
+3. **Convert to Code** (Use [figma-to-code.mdc](mdc:.cursor/rules/figma-to-code.mdc))
+   - Create component files
+   - Implement layout with Tailwind
+   - Add interactivity
+   - Implement responsive design
+
+4. **Follow Conventions** (Use [code-conventions.mdc](mdc:.cursor/rules/code-conventions.mdc))
+   - TypeScript types
+   - Prettier formatting
+   - Component patterns
+
+5. **Test** (Use [testing-guidelines.mdc](mdc:.cursor/rules/testing-guidelines.mdc))
+   - Write component tests
+   - Test interactions
+   - Verify accessibility
+
+## Tips for Efficient Figma-to-Code Workflow
+
+1. **Design System First**: If possible, establish design tokens in Figma Variables
+2. **Component Library**: Build reusable components in Figma that match your React components
+3. **Naming Convention**: Use consistent naming in Figma that matches component names
+4. **Documentation**: Keep design specs documented alongside code
+5. **Iteration**: Design and code should evolve together
+
+## Common Figma Features to Leverage
+
+- **Auto Layout**: Figma's auto layout translates well to Flexbox
+- **Constraints**: Use constraints in Figma to understand responsive behavior
+- **Variants**: Component variants in Figma = component props in React
+- **Styles**: Text and color styles in Figma = Tailwind classes or design tokens
+- **Frames**: Different frame sizes = responsive breakpoints
+
+## Troubleshooting
+
+### Design Doesn't Match Code
+- Check spacing values (Figma might use different units)
+- Verify color hex codes match exactly
+- Ensure font sizes are correctly mapped
+- Check if custom fonts need to be loaded
+
+### Responsive Issues
+- Verify breakpoints match design frames
+- Check if mobile/tablet/desktop designs exist in Figma
+- Ensure mobile-first approach is followed
+
+### Missing Design Specs
+- Use Figma's Inspect panel for exact values
+- Check if design uses variables (Figma Variables)
+- Ask designer for design system documentation

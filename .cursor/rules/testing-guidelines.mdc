@@ -1,0 +1,142 @@
+---
+globs: *.test.tsx,*.test.ts
+description: Testing guidelines and patterns using Vitest
+---
+
+# Testing Guidelines
+
+## Test File Structure
+
+Follow the pattern from [Counter.test.tsx](mdc:src/components/Counter.test.tsx):
+
+```typescript
+import { describe, it, expect, beforeEach } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import ComponentName from './ComponentName'
+
+describe('ComponentName', () => {
+  beforeEach(() => {
+    // Setup before each test
+  })
+
+  it('should render correctly', () => {
+    render(<ComponentName />)
+    // Assertions
+  })
+})
+```
+
+## Testing Patterns
+
+### Rendering Tests
+```typescript
+it('renders the component', () => {
+  render(<ComponentName title="Test" />)
+  expect(screen.getByText('Test')).toBeInTheDocument()
+})
+```
+
+### User Interaction Tests
+```typescript
+it('handles button click', async () => {
+  const user = userEvent.setup()
+  const handleClick = vi.fn()
+  
+  render(<Button onClick={handleClick}>Click me</Button>)
+  
+  await user.click(screen.getByRole('button'))
+  expect(handleClick).toHaveBeenCalledTimes(1)
+})
+```
+
+### State Management Tests
+```typescript
+it('updates store on action', () => {
+  const { getState } = useStore
+  
+  render(<Component />)
+  fireEvent.click(screen.getByRole('button'))
+  
+  expect(getState().count).toBe(1)
+})
+```
+
+### Form Testing
+```typescript
+it('submits form with correct data', async () => {
+  const user = userEvent.setup()
+  const onSubmit = vi.fn()
+  
+  render(<Form onSubmit={onSubmit} />)
+  
+  await user.type(screen.getByLabelText('Email'), 'test@example.com')
+  await user.click(screen.getByRole('button', { name: /submit/i }))
+  
+  expect(onSubmit).toHaveBeenCalledWith({ email: 'test@example.com' })
+})
+```
+
+## What to Test
+
+### Must Test
+- Component renders without errors
+- User interactions (clicks, form submissions)
+- Conditional rendering (loading, error, empty states)
+- Props are applied correctly
+- State changes trigger re-renders
+
+### Should Test
+- Accessibility (keyboard navigation, ARIA attributes)
+- Edge cases (empty arrays, null values, boundary conditions)
+- Integration with stores (Zustand)
+- Responsive behavior (if critical)
+
+### Don't Test
+- Implementation details (internal state, private methods)
+- Third-party library functionality
+- Styling (unless critical for functionality)
+- Trivial code (simple getters/setters)
+
+## Testing Utilities
+
+### Custom Render Function
+```typescript
+// src/test/utils.tsx
+import { render } from '@testing-library/react'
+import { ReactElement } from 'react'
+
+function customRender(ui: ReactElement, options = {}) {
+  return render(ui, {
+    // Add providers, context, etc.
+    ...options,
+  })
+}
+
+export * from '@testing-library/react'
+export { customRender as render }
+```
+
+### Mock Data
+```typescript
+// src/test/mocks.ts
+export const mockUser = {
+  id: '1',
+  name: 'John Doe',
+  email: 'john@example.com',
+}
+```
+
+## Test Organization
+
+- One test file per component
+- Group related tests with `describe` blocks
+- Use descriptive test names: `'should increment count when button is clicked'`
+- Keep tests independent (use `beforeEach` for setup)
+- Clean up after tests (handled by `afterEach` in [setup.ts](mdc:src/test/setup.ts))
+
+## Coverage Goals
+
+- Aim for 80%+ coverage on critical components
+- Focus on user-facing functionality
+- Don't obsess over 100% coverage

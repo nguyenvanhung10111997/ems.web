@@ -1,0 +1,106 @@
+---
+alwaysApply: true
+description: Code conventions and style guidelines for the project
+---
+
+# Code Conventions
+
+## TypeScript & React Standards
+
+### Component Structure
+- Use function components (not class components)
+- Export components as default exports
+- Use PascalCase for component names
+- Define props interfaces with descriptive names (e.g., `CounterProps`)
+- Always type component props explicitly
+
+### TypeScript Guidelines
+- Use strict TypeScript mode (enabled in [tsconfig.json](mdc:tsconfig.json))
+- Define interfaces for all state objects (see [useCounterStore.ts](mdc:src/store/useCounterStore.ts))
+- Use type inference where appropriate, but be explicit for public APIs
+- Avoid `any` type - use `unknown` if type is truly unknown
+- Use `!` assertion operator sparingly (only when certain, like `document.getElementById('root')!`)
+
+### File Naming
+- **TSX files (React components)**: `ComponentName.tsx` (PascalCase)
+- **TS files (all other files)**: `fileName.ts` (camelCase)
+  - Services: `serviceName.ts` (e.g., `loadingService.ts`, `apiService.ts`)
+  - Stores: `useStoreName.ts` (camelCase with `use` prefix)
+  - Utilities: `utilityName.ts` (camelCase)
+  - Hooks: `useHookName.ts` (camelCase with `use` prefix)
+  - Types: `types.ts` or `typeName.ts` (camelCase)
+- **Tests**: `ComponentName.test.tsx` or `fileName.test.ts` (same name as source file + `.test`)
+
+### Import Organization
+1. React imports first
+2. Third-party libraries
+3. Internal components
+4. Utilities and hooks
+5. Types and interfaces
+6. Styles (CSS imports last)
+
+Example:
+```typescript
+import React from 'react'
+import { create } from 'zustand'
+import Counter from './components/Counter'
+import useCounterStore from './store/useCounterStore'
+import type { CounterState } from './types'
+import './index.css'
+```
+
+## Prettier Configuration
+
+Follow the Prettier settings in [.prettierrc](mdc:.prettierrc):
+- No semicolons (`semi: false`)
+- Single quotes (`singleQuote: true`)
+- 2 spaces for indentation (`tabWidth: 2`)
+- 80 character line width (`printWidth: 80`)
+- ES5 trailing commas (`trailingComma: "es5"`)
+- Avoid arrow function parens when possible (`arrowParens: "avoid"`)
+
+## TailwindCSS Guidelines
+
+- Use utility classes directly in JSX (avoid inline styles)
+- Group related classes logically (layout, spacing, colors, typography)
+- Use responsive prefixes (`sm:`, `md:`, `lg:`, `xl:`, `2xl:`) when needed
+- Prefer Tailwind spacing scale over arbitrary values
+- Use semantic color names from Tailwind palette
+- Extract complex class combinations to reusable components if repeated
+
+Example from [Counter.tsx](mdc:src/components/Counter.tsx):
+```tsx
+<button
+  onClick={increment}
+  className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
+>
+```
+
+## Zustand Store Patterns
+
+- Define TypeScript interfaces for store state (see [useCounterStore.ts](mdc:src/store/useCounterStore.ts))
+- Use descriptive action names (verbs: `increment`, `decrement`, `reset`)
+- Keep stores focused on a single domain
+- Use `create` from zustand with proper typing
+- Store files should be in `src/store/` directory
+
+Example pattern:
+```typescript
+interface StoreState {
+  // state properties
+  action: () => void
+}
+
+const useStore = create<StoreState>((set) => ({
+  // implementation
+}))
+```
+
+## Component Best Practices
+
+- Keep components small and focused (single responsibility)
+- Extract reusable logic into custom hooks
+- Use composition over inheritance
+- Prefer props over context for simple data passing
+- Use Zustand for global state, props for local state
+- Add proper accessibility attributes (aria-labels, roles, etc.)

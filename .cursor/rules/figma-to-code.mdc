@@ -1,0 +1,145 @@
+---
+description: Step-by-step process for converting Figma designs to React/TypeScript code
+---
+
+# Figma to Code Conversion
+
+## Conversion Workflow
+
+### Step 1: Component Analysis
+1. Identify the component type (Button, Card, Form, Layout, etc.)
+2. Determine if it's a new component or modification of existing
+3. Check for reusable sub-components
+4. Note any state requirements (use Zustand if global, useState if local)
+
+### Step 2: Structure Planning
+1. Create component file: `src/components/ComponentName.tsx`
+2. Define TypeScript interface for props: `ComponentNameProps`
+3. Plan component hierarchy (parent/child relationships)
+4. Identify which parts need to be extracted into separate components
+
+### Step 3: Layout Implementation
+1. Start with container structure (div, section, article, etc.)
+2. Use Tailwind flexbox/grid utilities for layout:
+   - `flex`, `flex-col`, `flex-row`
+   - `grid`, `grid-cols-{n}`
+   - `items-center`, `justify-between`, etc.
+3. Apply spacing: `p-{n}`, `m-{n}`, `gap-{n}`
+4. Set dimensions: `w-{n}`, `h-{n}`, `max-w-{n}`
+
+### Step 4: Typography
+1. Apply font sizes: `text-xs` through `text-6xl`
+2. Set font weights: `font-normal`, `font-medium`, `font-semibold`, `font-bold`
+3. Apply text colors: `text-gray-900`, `text-blue-600`, etc.
+4. Set line height if needed: `leading-tight`, `leading-normal`, `leading-relaxed`
+
+### Step 5: Colors & Styling
+1. Background colors: `bg-white`, `bg-gray-100`, `bg-blue-600`
+2. Border colors: `border-gray-200`, `border-blue-500`
+3. Text colors: `text-gray-900`, `text-blue-600`
+4. Use semantic color names from Tailwind palette
+
+### Step 6: Interactive Elements
+1. Buttons: Use semantic HTML `<button>` with proper `onClick` handlers
+2. Links: Use `<a>` or React Router `<Link>` with proper `href`
+3. Forms: Use proper form elements with labels and accessibility
+4. Add hover states: `hover:bg-blue-700`, `hover:shadow-lg`
+5. Add focus states: `focus:outline-none`, `focus:ring-2`, `focus:ring-blue-500`
+6. Add transitions: `transition-colors`, `transition-all`, `duration-200`
+
+### Step 7: Responsive Design
+1. Mobile-first approach: Base styles for mobile
+2. Add breakpoint prefixes: `md:`, `lg:`, `xl:` for larger screens
+3. Test responsive behavior: `md:flex-row`, `lg:grid-cols-3`
+
+### Step 8: Component Props & Types
+```typescript
+interface ComponentNameProps {
+  title: string
+  description?: string
+  variant?: 'primary' | 'secondary'
+  onClick?: () => void
+  className?: string
+}
+
+function ComponentName({ 
+  title, 
+  description, 
+  variant = 'primary',
+  onClick,
+  className = ''
+}: ComponentNameProps) {
+  // implementation
+}
+```
+
+### Step 9: State Management
+- **Local state**: Use `useState` for component-specific state
+- **Global state**: Use Zustand stores in `src/store/`
+- **Form state**: Consider React Hook Form for complex forms
+- **Server state**: Use appropriate data fetching library
+
+### Step 10: Accessibility
+1. Semantic HTML: Use proper elements (`<button>`, `<nav>`, `<main>`, etc.)
+2. ARIA labels: Add `aria-label`, `aria-describedby` when needed
+3. Keyboard navigation: Ensure all interactive elements are keyboard accessible
+4. Focus management: Visible focus indicators
+5. Alt text: For images, use descriptive `alt` attributes
+
+### Step 11: Testing
+1. Create test file: `src/components/ComponentName.test.tsx`
+2. Test rendering: Component renders without errors
+3. Test interactions: Click handlers, form submissions
+4. Test accessibility: Screen reader compatibility
+5. Test responsive: Different screen sizes
+
+## Common Patterns
+
+### Card Component
+```tsx
+<div className="bg-white rounded-lg shadow-md p-6 max-w-md">
+  <h3 className="text-lg font-semibold text-gray-800 mb-2">{title}</h3>
+  <p className="text-gray-600">{description}</p>
+</div>
+```
+
+### Button Variants
+```tsx
+const buttonStyles = {
+  primary: 'bg-blue-600 hover:bg-blue-700 text-white',
+  secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-900',
+  outline: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-50'
+}
+
+<button className={`px-4 py-2 rounded-lg font-semibold transition-colors ${buttonStyles[variant]}`}>
+  {children}
+</button>
+```
+
+### Form Input
+```tsx
+<div className="mb-4">
+  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+    Email
+  </label>
+  <input
+    type="email"
+    id="email"
+    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    placeholder="Enter your email"
+  />
+</div>
+```
+
+## Quality Checklist
+
+Before considering conversion complete:
+- [ ] TypeScript types defined for all props
+- [ ] Tailwind classes used (no inline styles)
+- [ ] Responsive design implemented
+- [ ] Accessibility attributes added
+- [ ] Hover/focus states implemented
+- [ ] Component is reusable and well-structured
+- [ ] Test file created
+- [ ] Code formatted with Prettier
+- [ ] Matches Figma design (pixel-perfect or close)

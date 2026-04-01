@@ -1,0 +1,170 @@
+---
+globs: *.tsx,*.ts
+description: Common React component patterns and best practices
+---
+
+# Component Patterns & Best Practices
+
+## Component Structure Template
+
+```typescript
+import React from 'react'
+import type { ComponentNameProps } from './types'
+
+function ComponentName({ 
+  prop1, 
+  prop2,
+  className = ''
+}: ComponentNameProps) {
+  return (
+    <div className={`base-classes ${className}`}>
+      {/* Component content */}
+    </div>
+  )
+}
+
+export default ComponentName
+```
+
+## Props Interface Pattern
+
+Always define props interfaces:
+```typescript
+interface ComponentNameProps {
+  // Required props
+  title: string
+  // Optional props
+  description?: string
+  variant?: 'primary' | 'secondary'
+  // Event handlers
+  onClick?: () => void
+  onSubmit?: (data: FormData) => void
+  // Styling
+  className?: string
+  // Children
+  children?: React.ReactNode
+}
+```
+
+## Conditional Rendering Patterns
+
+```typescript
+// Simple conditional
+{isVisible && <Component />}
+
+// Ternary
+{isLoading ? <Spinner /> : <Content />}
+
+// Multiple conditions
+{status === 'loading' && <Spinner />}
+{status === 'error' && <ErrorMessage />}
+{status === 'success' && <SuccessMessage />}
+```
+
+## List Rendering Pattern
+
+```typescript
+{items.map((item) => (
+  <ItemComponent 
+    key={item.id} 
+    item={item}
+  />
+))}
+```
+
+Always use stable keys (IDs, not indices when possible).
+
+## Custom Hooks Pattern
+
+Extract reusable logic:
+```typescript
+// src/hooks/useCustomHook.ts
+function useCustomHook(initialValue: string) {
+  const [value, setValue] = useState(initialValue)
+  
+  const updateValue = (newValue: string) => {
+    setValue(newValue)
+  }
+  
+  return { value, updateValue }
+}
+```
+
+## Error Boundary Pattern
+
+For error handling:
+```typescript
+function ErrorBoundary({ children }: { children: React.ReactNode }) {
+  // Error boundary implementation
+}
+```
+
+## Loading States
+
+```typescript
+{isLoading && (
+  <div className="flex items-center justify-center p-8">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+  </div>
+)}
+```
+
+## Empty States
+
+```typescript
+{items.length === 0 && (
+  <div className="text-center py-12">
+    <p className="text-gray-500">No items found</p>
+  </div>
+)}
+```
+
+## Form Handling Pattern
+
+```typescript
+function FormComponent() {
+  const [formData, setFormData] = useState({ email: '', password: '' })
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle submission
+  }
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }))
+  }
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* Form fields */}
+    </form>
+  )
+}
+```
+
+## Composition Pattern
+
+Prefer composition over complex props:
+```typescript
+<Card>
+  <Card.Header>Title</Card.Header>
+  <Card.Body>Content</Card.Body>
+  <Card.Footer>Actions</Card.Footer>
+</Card>
+```
+
+## Memoization Pattern
+
+Use `React.memo` for expensive components:
+```typescript
+export default React.memo(ExpensiveComponent)
+```
+
+Use `useMemo` and `useCallback` when appropriate:
+```typescript
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
+const memoizedCallback = useCallback(() => doSomething(a, b), [a, b])
+```

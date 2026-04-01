@@ -1,0 +1,93 @@
+---
+description: Guidelines for analyzing Figma designs and extracting design specifications
+---
+
+# Figma Design Analysis
+
+## Design Inspection Checklist
+
+When analyzing a Figma design, extract the following information:
+
+### Layout & Structure
+1. **Container dimensions**: Width, height, max-width constraints
+2. **Spacing**: Padding, margins, gaps between elements
+3. **Grid system**: Column count, row structure, alignment
+4. **Responsive breakpoints**: Mobile, tablet, desktop variations
+5. **Container types**: Flexbox, Grid, or absolute positioning
+
+### Typography
+1. **Font families**: Primary and secondary fonts
+2. **Font sizes**: All text sizes (use Tailwind text scale: `text-xs`, `text-sm`, `text-base`, `text-lg`, `text-xl`, `text-2xl`, etc.)
+3. **Font weights**: Regular (400), medium (500), semibold (600), bold (700)
+4. **Line heights**: Leading values
+5. **Letter spacing**: Tracking values
+6. **Text colors**: Hex codes or Tailwind color equivalents
+
+### Colors
+1. **Primary colors**: Main brand colors
+2. **Secondary colors**: Accent colors
+3. **Neutral colors**: Grays, blacks, whites
+4. **State colors**: Hover, active, disabled, error, success, warning
+5. **Background colors**: Page, section, card backgrounds
+6. **Text colors**: Headings, body, links, muted text
+
+### Components & Elements
+1. **Buttons**: 
+   - Variants (primary, secondary, outline, ghost)
+   - Sizes (sm, md, lg)
+   - States (default, hover, active, disabled)
+   - Border radius
+   - Padding
+2. **Inputs**: 
+   - Border styles
+   - Focus states
+   - Error states
+   - Placeholder styling
+3. **Cards**: 
+   - Shadow/elevation
+   - Border radius
+   - Padding
+   - Background color
+4. **Icons**: 
+   - Size
+   - Color
+   - Stroke width (if applicable)
+
+### Spacing System
+- Extract spacing values and map to Tailwind spacing scale:
+  - 4px = `1` (0.25rem)
+  - 8px = `2` (0.5rem)
+  - 12px = `3` (0.75rem)
+  - 16px = `4` (1rem)
+  - 24px = `6` (1.5rem)
+  - 32px = `8` (2rem)
+  - 48px = `12` (3rem)
+  - 64px = `16` (4rem)
+
+### Shadows & Effects
+1. **Box shadows**: Extract shadow values (offset-x, offset-y, blur, spread, color)
+2. **Border radius**: Corner rounding values
+3. **Opacity**: Transparency values
+4. **Gradients**: Direction, colors, stops
+
+### Interactive States
+1. **Hover states**: Color changes, scale, shadow changes
+2. **Active states**: Pressed appearance
+3. **Focus states**: Outline, ring styles
+4. **Disabled states**: Opacity, cursor changes
+
+## Design Token Extraction
+
+When analyzing, create a mental (or written) mapping:
+- Figma values → Tailwind classes
+- Custom values → Consider adding to `tailwind.config.js` if frequently used
+- Color hex → Tailwind color name or custom color
+
+## Questions to Ask
+
+1. Is this a reusable component or one-off design?
+2. What are the responsive breakpoints?
+3. Are there loading/error/empty states?
+4. What are the accessibility requirements?
+5. Are there animations or transitions?
+6. What happens on interaction (hover, click, focus)?
